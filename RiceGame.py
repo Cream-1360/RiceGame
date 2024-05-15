@@ -22,13 +22,16 @@ SHIFT_J = SHIFT_Y // BLOCK_H #shift j
 BOARD_W = 8 #size i
 BOARD_H = 15  #size j
 
-RICE_NUM = 5
+RICE_NUM = 6
+OJAMA = 7
 
 GAME_START_INTERVAL = 15
 BUTTON_INTERVAL = 4
-FALL_INTERVAL = 12
 SUPRISED_FACE_EFFECT_TIME = 5
 ANGLY_FACE_EFFECT_TIME = 5
+
+LEVEL_UP_EFFECT_TIME = 30
+
 
 
 
@@ -53,8 +56,9 @@ rice_type_dic = {"None": [-1,-1],
                 "Peach": [0,32],
                 "White": [0,48],
                 "Green": [0,64],
-                "Blue":  [0,80],
-                "Donut": [0,0],
+                "Blue" : [0,80],
+                "Bronw": [0,240],
+                "Nakami":[0,0],
 }
 
 rice_dic = {}
@@ -105,6 +109,18 @@ gauge_outer_pos = [0,16,16,128]
 
 omu_pos = [152,192]
 
+start_frame = 0
+def setStartFrame():
+    global start_frame
+    start_frame = pyxel.frame_count
+
+
+fall_interval = 12
+def setFallInterval(val):
+    global fall_interval
+    fall_interval = val
+
+
 
 def getRiceDirectory(type):
     return rice_dic[rice_type_list[type]]
@@ -144,49 +160,49 @@ class Omu:
         self.dance_interval = 20
         dance_step = 22
         
-        if (pyxel.frame_count // self.dance_interval) % dance_step == 0:
+        if ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 0:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Stand",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 1:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 1:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Punch",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 2:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 2:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Punch",omu_dic,-1))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 3:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 3:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsDown",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 4:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 4:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsUp",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 5:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 5:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsWave",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 6:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 6:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsWave",omu_dic,-1))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 7:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 7:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsWave",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 8:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 8:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsWave",omu_dic,-1))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 9:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 9:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsWave",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 10:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 10:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Punch",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 11:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 11:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Punch",omu_dic,-1))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 12:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 12:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Right",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 13:    
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 13:    
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Back",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 14:    
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 14:    
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Right",omu_dic,-1))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 15:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 15:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Stand",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 16:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 16:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsUp",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 17:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 17:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsDown",omu_dic))    
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 18:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 18:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("HandsUp",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 19:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 19:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Punch",omu_dic))
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 20:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 20:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Punch",omu_dic,-1))            
-        elif (pyxel.frame_count // self.dance_interval) % dance_step == 21:
+        elif ((pyxel.frame_count - start_frame )// self.dance_interval) % dance_step == 21:
             pyxel.blt(self.x,self.y, 0, *getDirectedItem("Punch",omu_dic))
 
 
@@ -212,6 +228,8 @@ Board_Erase_Effect = 7
 Board_Erase = 8
 Gauge_Check = 9
 Board_Special_Event_Effect =10
+Board_EMPTY_Event_Effect =11
+Board_LevelUp_Effect = 12
 
 game_scene = Player_Manual_Move
 
@@ -234,20 +252,27 @@ def setGameMode(mode):
 
 class Gauge:
     def __init__(self):
-        self.val = 0
         self.max = 8 * BLOCK_H -4
-        self.isFull = False
+        self.reset()
         
     def reset(self):
         self.val = 0
         self.isFull = False
+        self.isEmpty = False
         
-    def update(self,chain_num,erase_num):
-        self.val += chain_num * erase_num
+    def update(self,v):
+        self.val += v
+        
         if self.val > self.max:
             self.val =  self.max
             self.isFull = True
             return True
+        if self.val < 0:
+            self.val = 0
+            self.isEmpty = True
+            return True
+        
+            
         return False
 
     def draw(self):
@@ -399,6 +424,9 @@ class BoardManage:
         self.initBoard()
         self.chainNum = 0
         self.eraseNum = 0
+        self.level_up_score_max = 1000
+        self.level_up_score = np.arange(50,self.level_up_score_max+1,50)
+        self.hasLevelUp = False
         
      
     def initBoard(self):
@@ -409,6 +437,9 @@ class BoardManage:
         self.rices = []
         self.gauge.reset()
         self.score = 0
+        self.ojama_fall_interval = 20
+        self.turn =0
+        self.level = 0
         
     
     def colision(self,x,y):
@@ -420,28 +451,70 @@ class BoardManage:
             return True
         return False
     
+    def getMovablePos(self,x,y,dx,dy):
+        if not self.colision(x+dx,y+dy):
+            return dx,dy
+        
+        find = False
+        for d in range(BLOCK_H//2,dy+1,BLOCK_H//2):
+            if self.colision(x+dx,y+d):
+                find = True
+                break
+        if find:
+            return dx,d-BLOCK_H//2
+        
+        return 0,0
+            
+        
+    
     def checkGround(self,i,j):
         if self.board[j+1,i]!=0:
             return True
         return False
+
     
-    def setRiceEraseProc(self,i,j):
+    def getIJRice(self,i,j):
         tmp = [r for r in self.rices if r.isTarget(i,j)]
         if len(tmp) == 0:
-            return
-        tmp[0].setEffect(RiceEffect.Surprised)
+            return None
+        return tmp[0]
+        
+        
+
+    
+    def setAroundOjama(self,i,j):
+        pos = [[0,-1],[1,0],[0,1],[-1,0]]
+        
+        for p in pos:
+            ii = i + p[0]
+            jj = j + p[1]
+            if self.board[jj,ii] == OJAMA:
+                r = self.getIJRice(ii,jj)
+                if r == None or r.isInEraseProc == False:
+                    r.setEraseFlag()
+                    continue
+
         
     
+    def setRiceEraseProc(self,i,j):
+        r = self.getIJRice(i,j)
+        if r == None:
+            return
+        r.setEffect(RiceEffect.Surprised)
+        self.setAroundOjama(i,j)
         
+    
+       
     def moveRice(self,si,sj,ti,tj):
         
-        tmp = [r for r in self.rices if r.isTarget(si,sj)]
-        if len(tmp) == 0:
+        r = self.getIJRice(si,sj)
+        if r == None:
             return
+        r.setEffect(RiceEffect.Surprised)
         
         self.board[tj,ti] = self.board[sj,si]
         self.board[sj,si] = 0
-        r = tmp[0]
+        
         r.moveIJ(ti,tj)
         if self.checkGround(ti,tj):
             pyxel.play(3, 0)
@@ -521,7 +594,7 @@ class BoardManage:
         
         for r in erase_list:
             i,j = r.getIJ()
-            self.board[j,i] = 0  
+            self.board[j,i] = 0
         setGameScene(Board_Split)      
         
     
@@ -530,7 +603,7 @@ class BoardManage:
     
     
     def gaugeMax(self):
-        
+        print("GaugeMax")
         if len(self.rices)==0:
             return
         
@@ -551,12 +624,109 @@ class BoardManage:
                     tmp.changeType(etype)
         self.gauge.reset()
         setGameScene(Board_Special_Event_Effect)      
-                
         
+        
+    def gaugeEvent(self):
+        if self.gauge.isFull:
+            self.gaugeMax()
+    
+    def getPushablePosList(self):
+        
+        pos_list = []
+        for i in range(1,BOARD_W-1):
+            for j in range(BOARD_H-2,0,-1):
+                if self.board[j,i] == 0:
+                    pos_list.append([i,j])
+                    break
+            
+        return pos_list
+    
+    def setOjamaRice(self,i,j):
+        if self.board[j,i] != 0:
+            return False
+        pyxel.play(3, 4)
+        
+        self.board[j,i] = OJAMA
+        r = Rice(OJAMA,i,j)
+        r.setBoundFlag()
+        self.rices.append(r)
+        return True
+
+    def fallOjama(self,repeat,ojamaNum):
+        
+        if repeat<=0:
+            return
+        
+        #まず1列分のおじゃまらいす
+        pos_list = self.getPushablePosList()
+        ojama_pos = []
+        if ojamaNum<len(pos_list):
+            ojama_pos += random.sample(pos_list, ojamaNum)
+            ojamaNum = 0
+        else:
+            ojama_pos += copy.copy(pos_list)
+            ojamaNum -= len(pos_list)
+
+        for p in ojama_pos:
+            self.setOjamaRice(p[0],p[1])
+        
+        self.fallOjama(repeat-1,ojamaNum)
+        
+        setGameScene(Board_EMPTY_Event_Effect)
+        
+
+       
+                
+    
+    def increaseTurn(self):
+        self.turn += 1
+        
+        if self.turn % self.ojama_fall_interval == (self.ojama_fall_interval-1):
+            self.turn = 0
+            ojamaNum = random.randint(2,12)
+            self.fallOjama(2,ojamaNum)
+            return True
+        
+        return False                    
+        
+    
     def setScore(self):
         self.score += self.chainNum*self.eraseNum
         if self.score>9999:
             self.score = 9999
+        
+        s = self.score
+        if s>= self.level_up_score_max:
+            s = self.level_up_score_max
+            
+            
+        lv = np.argwhere(s<=self.level_up_score)[0][0]
+
+        
+        self.hasLevelUp
+
+        fall_interval = 12 - ((lv+1)//2)*2
+        self.ojama_fall_interval = 20 - ((lv)//2)
+        
+        if fall_interval<2:
+            fall_interval = 2
+        if self.ojama_fall_interval < 10:
+            self.ojama_fall_interval = 10
+            
+        setFallInterval(fall_interval)
+        if self.level < lv:
+            self.hasLevelUp =True
+            self.hasLevelUp_frame = pyxel.frame_count
+            self.level = lv
+            pyxel.play(3, 5)
+            
+            return True
+
+        
+        self.level = lv
+        
+        return False
+            
             
     def update(self):
         
@@ -568,7 +738,11 @@ class BoardManage:
                     hasFloating = True
                     break
             if not hasFloating:
-                setGameScene(Board_Erase_Check)
+                if self.gauge.isFull:
+                    pyxel.play(3, 2)
+                    self.gaugeEvent()
+                else:
+                    setGameScene(Board_Erase_Check)
                 
         elif game_scene == Board_Erase_Effect:
             hasErasing = False
@@ -577,13 +751,11 @@ class BoardManage:
                     hasErasing = True
                     break
             if not hasErasing:
-                self.setScore()
-                if not self.gauge.update(self.chainNum,self.eraseNum):
-                    setGameScene(Board_Erase)
+                if self.setScore():
+                    setGameScene(Board_LevelUp_Effect)
                 else:
-                    pyxel.play(3, 2)
-                    
-                    self.gaugeMax()
+                    self.gauge.update(self.chainNum*self.eraseNum)
+                    setGameScene(Board_Erase)
         
         elif game_scene == Board_Special_Event_Effect:
             hasChanging = False
@@ -593,7 +765,20 @@ class BoardManage:
                     break
             if not hasChanging:
                 setGameScene(Board_Erase)
-        
+        elif game_scene == Board_EMPTY_Event_Effect:
+            hasBounding = False
+            for r in self.rices:
+                if r.effect != RiceEffect.Normal:
+                    hasBounding = True
+                    break
+            if not hasBounding:
+                setGameScene(Player_Manual_Move)
+                
+        elif game_scene == Board_LevelUp_Effect:
+            if pyxel.frame_count - self.hasLevelUp_frame > LEVEL_UP_EFFECT_TIME:
+                self.hasLevelUp = False
+                setGameScene(Board_Erase)            
+            
         
         #Process
         elif game_scene == Board_Check_GameOver:
@@ -609,12 +794,13 @@ class BoardManage:
             self.eraseNum = self.eraseConnection()
             if self.eraseNum > 0:
                 pyxel.play(3, 1)
-                
                 self.chainNum += 1
                 setGameScene(Board_Erase_Effect)                    
             else:
-                self.chainNum =0
+                self.increaseTurn()
                 setGameScene(Player_Manual_Move)
+                self.chainNum =0
+                
         elif game_scene == Board_Erase:
               self.eraseDisableRices()
               
@@ -632,14 +818,25 @@ class BoardManage:
         
         for r in self.rices:
             r.draw()
-            
+        
+        
+        if game_scene == Board_LevelUp_Effect:
+            pyxel.rect(60, 90, 40, 12, 0)
+            pyxel.text(65,94,"LEVEL UP",10)
+        elif game_scene == Board_Special_Event_Effect:
+            pyxel.rect(60, 90, 40, 12, 0)
+            pyxel.text(63,94,"GAUGE MAX",14)
+
         self.gauge.draw()
         #Draw Score
-        pyxel.text(168,8,"SCORE",7)
-        pyxel.text(169,9,"SCORE",0)
-        pyxel.text(168,20,str(self.score).zfill(4),7)
-        pyxel.text(169,21,str(self.score).zfill(4),0)
-    
+        pyxel.text(165,8,"SCORE",7)
+        pyxel.text(166,9,"SCORE",0)
+        pyxel.text(167,20,str(self.score).zfill(4),7)
+        pyxel.text(168,21,str(self.score).zfill(4),0)
+
+        pyxel.text(162,40,f"LEVEL"+str(self.level+1).zfill(2),7)
+        pyxel.text(163,41,f"LEVEL"+str(self.level+1).zfill(2),0)
+        
         
         return False      
  
@@ -670,7 +867,6 @@ class RicePlayer:
         self.rotating = False
         self.rotating_stime = 0
         self.manualFall = False
-        self.manualFall_stime = 0
         self.ground =False
         self.ground_stime = 0
         self.enable = True
@@ -707,7 +903,8 @@ class RicePlayer:
         
         return
         
-        
+    
+    
     def update(self,board):
         
         if not self.enable :
@@ -767,7 +964,7 @@ class RicePlayer:
             self.forcedGround(board)
 
         #落下処理
-        elif  self.manualFall or pyxel.frame_count%FALL_INTERVAL ==0:
+        elif  self.manualFall or pyxel.frame_count%fall_interval ==0:
             if pyxel.btn(pyxel.KEY_DOWN):
                 dy = BLOCK_H
                 self.manualFall = True
@@ -786,6 +983,20 @@ class RicePlayer:
         
         
         #接触判定
+        # dx0,dy0 = board.getMovablePos(x0,y0,dx,dy)
+        # dx1,dy1 = board.getMovablePos(x0,y0,dx,dy)
+
+        # xidx = np.argmin([np.abs(dx0),np.abs(dx1)])
+        # if xidx==0:
+        #     dx = dx0
+        # else:
+        #     dx = dx1
+        # dy = np.min([dy0,dy1])
+        # if dx!=0 or dy>0:
+        #     self.rice0.moveDxDy(dx,dy)
+        #     self.rice1.moveDxDy(dx,dy)
+        
+        
         if not board.colision(x0+dx,y0+dy) and not board.colision(x1+dx,y1+dy):
             self.rice0.moveDxDy(dx,dy)
             self.rice1.moveDxDy(dx,dy)
@@ -846,7 +1057,6 @@ class App:
         self.board  = BoardManage()
         self.omu = Omu()
         
-        self.start_frame = pyxel.frame_count
         
         self.isPlayerTurn = True
 
@@ -881,11 +1091,11 @@ class App:
         
         if game_mode == TITLE:
             if pyxel.btn(pyxel.KEY_RETURN):
-                self.start_frame = pyxel.frame_count
-                setGameMode(GAME_PLAY)                
+                setGameMode(GAME_PLAY)
+                setStartFrame()         
         
         elif game_mode == GAME_PLAY:
-            if pyxel.frame_count-self.start_frame <= GAME_START_INTERVAL:
+            if pyxel.frame_count-start_frame <= GAME_START_INTERVAL:
                 return
             if game_scene == Player_Manual_Move:
                 self.player.update(self.board)
@@ -899,6 +1109,7 @@ class App:
                 self.board.initBoard()
                 setGameScene(Player_Manual_Move)
                 setGameMode(GAME_PLAY)
+                setStartFrame()         
             
     
     def draw_gameover(self):
